@@ -8,10 +8,7 @@ package com.mycompany.editor_texto;
 
 import javax.swing.JFrame;
 
-/**
- *
- * @author user
- */
+
 public class Marco_editor extends javax.swing.JFrame {
 
     /**
