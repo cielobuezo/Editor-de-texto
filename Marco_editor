@@ -10,7 +10,10 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.StyleConstants;
-
+import java.awt.GraphicsEnvironment;
+import javax.swing.text.Style;
+import javax.swing.text.StyledDocument;
+import javax.swing.DefaultComboBoxModel;
 /**
  *
  * @author user
@@ -19,6 +22,8 @@ public class Editor_text extends javax.swing.JFrame {
     
     JFileChooser filechooser;
     File archivo;
+    StyledDocument doc;
+    Style estilo;
     
 
     /**
@@ -30,6 +35,14 @@ public class Editor_text extends javax.swing.JFrame {
         doc = jTextArea1.getStyledDocument();
         estilo = jTextArea1.addStyle("miEstilo", null);
         
+        DefaultComboBoxModel modelo =(DefaultComboBoxModel)cbfont.getModel();
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        String fontNames[] = ge.getAvailableFontFamilyNames();
+        for (int i = 0; i< fontNames.length; i++){
+            modelo.addElement(fontNames[i]);
+        }
+        
+        cbfont.setModel(modelo);
     }
 
     /**
@@ -44,7 +57,7 @@ public class Editor_text extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jToolBar1 = new javax.swing.JToolBar();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbfont = new javax.swing.JComboBox<>();
         cbtamaño = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -68,9 +81,6 @@ public class Editor_text extends javax.swing.JFrame {
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem14 = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
-        jMenuItem15 = new javax.swing.JMenuItem();
-        jMenuItem16 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,10 +90,15 @@ public class Editor_text extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arial" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cbfont.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arial" }));
+        cbfont.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbfontItemStateChanged(evt);
+            }
+        });
+        cbfont.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cbfontActionPerformed(evt);
             }
         });
 
@@ -204,28 +219,13 @@ public class Editor_text extends javax.swing.JFrame {
 
         jMenu6.setText("Buscar");
 
-        jMenuItem14.setText("Numeracion");
+        jMenuItem14.setText("URL");
         jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem14ActionPerformed(evt);
             }
         });
         jMenu6.add(jMenuItem14);
-
-        jMenu7.setText("Apariencia");
-
-        jMenuItem15.setText("Normal");
-        jMenu7.add(jMenuItem15);
-
-        jMenuItem16.setText("Dark");
-        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem16ActionPerformed(evt);
-            }
-        });
-        jMenu7.add(jMenuItem16);
-
-        jMenu6.add(jMenu7);
 
         jMenuBar1.add(jMenu6);
 
@@ -239,12 +239,14 @@ public class Editor_text extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbfont, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbtamaño, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
+                        .addGap(0, 0, 0)
                         .addComponent(jButton2)
+                        .addGap(0, 0, 0)
                         .addComponent(jButton3)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,7 +259,7 @@ public class Editor_text extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbfont, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbtamaño, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -318,17 +320,10 @@ public class Editor_text extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                           
 
-    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }                                           
+    private void cbfontActionPerformed(java.awt.event.ActionEvent evt) {                                       
 
-    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-    }                                           
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }                                          
+    }                                      
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try{
@@ -365,6 +360,13 @@ public class Editor_text extends javax.swing.JFrame {
     }                                               
 
     private void cbtamañoActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        StyleConstants.setFontSize(estilo,Integer.parseInt(cbtamaño.getSelectedItem().toString()) );
+        doc.setCharacterAttributes(jTextArea1.getSelectionStart(),
+                jTextArea1.getSelectionEnd()-jTextArea1.getSelectionStart(),
+                jTextArea1.getStyle("miEstilo"),
+                true);
+                
+
         // TODO add your handling code here:
     }                                        
 
@@ -398,6 +400,16 @@ public class Editor_text extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }                                        
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        // TODO add your handling code here:
+    }                                           
+
+    private void cbfontItemStateChanged(java.awt.event.ItemEvent evt) {                                        
+       
+                
+        // TODO add your handling code here:
+    }                                       
 
     /**
      * @param args the command line arguments
@@ -439,25 +451,22 @@ public class Editor_text extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuItemAbrir;
     private javax.swing.JMenuItem MenuItemguardar;
     private javax.swing.JMenu Menuarchivo;
+    private javax.swing.JComboBox<String> cbfont;
     private javax.swing.JComboBox<String> cbtamaño;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JMenuItem jMenuItem15;
-    private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
@@ -466,8 +475,7 @@ public class Editor_text extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration                   
-StyledDocument doc;
-Style estilo;
+
 
 }
 
