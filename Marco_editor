@@ -113,6 +113,11 @@ public class Editor_text extends javax.swing.JFrame {
         });
 
         jButton3.setText("S");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         Menuarchivo.setText("Archivo");
 
@@ -326,6 +331,17 @@ public class Editor_text extends javax.swing.JFrame {
     }                                          
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        try{
+            StyleConstants.setItalic(estilo, true);
+            
+            doc.setCharacterAttributes(jTextArea1.getSelectionStart(),
+                jTextArea1.getSelectionEnd()- jTextArea1.getSelectionStart(),
+                jTextArea1.getStyle("mi estilo"),
+                true);
+        }
+          catch (Exception ex){
+              
+         }
         // TODO add your handling code here:
     }                                        
 
@@ -364,6 +380,22 @@ public class Editor_text extends javax.swing.JFrame {
           catch (Exception ex){
               
          }
+        // TODO add your handling code here:
+    }                                        
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        try{
+            StyleConstants.setUnderline(estilo, true);
+            
+            doc.setCharacterAttributes(jTextArea1.getSelectionStart(),
+                jTextArea1.getSelectionEnd()- jTextArea1.getSelectionStart(),
+                jTextArea1.getStyle("mi estilo"),
+                true);
+        }
+          catch (Exception ex){
+              
+         }
+
         // TODO add your handling code here:
     }                                        
 
