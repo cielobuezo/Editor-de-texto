@@ -7,6 +7,8 @@ package com.mycompany.editor;
 
 import javax.swing.*;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,6 +24,7 @@ public class Editor_text extends javax.swing.JFrame {
      */
     public Editor_text() {
         initComponents();
+        archivo=null;
     }
 
     /**
@@ -43,7 +46,6 @@ public class Editor_text extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         Menuarchivo = new javax.swing.JMenu();
-        MInuevo = new javax.swing.JMenuItem();
         MenuItemAbrir = new javax.swing.JMenuItem();
         MenuItemguardar = new javax.swing.JMenuItem();
         MIguardarcomo = new javax.swing.JMenuItem();
@@ -98,14 +100,6 @@ public class Editor_text extends javax.swing.JFrame {
         jButton3.setText("S");
 
         Menuarchivo.setText("Archivo");
-
-        MInuevo.setText("Nuevo");
-        MInuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MInuevoActionPerformed(evt);
-            }
-        });
-        Menuarchivo.add(MInuevo);
 
         MenuItemAbrir.setText("Abrir");
         MenuItemAbrir.addActionListener(new java.awt.event.ActionListener() {
@@ -260,10 +254,6 @@ public class Editor_text extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    private void MInuevoActionPerformed(java.awt.event.ActionEvent evt) {                                        
-
-    }                                       
-
     private void MenuItemAbrirActionPerformed(java.awt.event.ActionEvent evt) {                                              
         filechooser = new JFileChooser();
         int returnVal = filechooser.showOpenDialog(this);
@@ -325,7 +315,21 @@ public class Editor_text extends javax.swing.JFrame {
     }                                        
 
     private void MenuItemguardarActionPerformed(java.awt.event.ActionEvent evt) {                                                
-
+        String texto = jTextArea1.getText();
+        PrintWriter pw;
+        if(archivo != null)
+        {
+        
+        try 
+        { 
+            pw = new PrintWriter(archivo);
+            pw.print(texto);
+            pw.close();
+            
+        }catch (FileNotFoundException ex)  {
+            Logger.getLogger(Editor_text.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
         // TODO add your handling code here:
     }                                               
 
@@ -366,7 +370,6 @@ public class Editor_text extends javax.swing.JFrame {
 
     // Variables declaration - do not modify                     
     private javax.swing.JMenuItem MIguardarcomo;
-    private javax.swing.JMenuItem MInuevo;
     private javax.swing.JMenuItem MenuItemAbrir;
     private javax.swing.JMenuItem MenuItemguardar;
     private javax.swing.JMenu Menuarchivo;
